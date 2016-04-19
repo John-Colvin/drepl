@@ -1,21 +1,9 @@
 {
     "name": "drepl",
-    "description": "A D interpreter.",
+    "description": "A D interpreter",
     "copyright": "Copyright © 2014, dawg",
     "license": "MIT",
     "authors": ["dawg"],
-    "lflags-linux-dmd": ["-l:libphobos2.so", "-ldl"],
-    "buildTypes": {
-        "plain": {
-            "buildOptions": ["releaseMode"],
-        },
-        "debug": {
-            "buildOptions": ["debugInfo", "releaseMode"],
-        },
-        "unittest": {
-            "buildOptions": ["unittests", "releaseMode", "debugInfo"]
-        }
-    },
     "configurations": [
         {
             "name": "console",
@@ -32,6 +20,8 @@
         },
     ],
     "dependencies": {
-        "libdparse": {"branch": "~master", "path": "libdparse"},
+        "libdparse": "~>0.6.0",
     },
+    "preBuildCommands": ["cd linenoise && gcc -O3 -c linenoise.c -olinenoise.o && ar rvs liblinenoise.a linenoise.o"],
+    "lflags": ["-L$PACKAGE_DIR/linenoise"],
 }
